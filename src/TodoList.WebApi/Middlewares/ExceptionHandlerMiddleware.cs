@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using TodoList.WebApi.Exceptions;
 using TodoList.WebApi.ViewModels.Common;
 
@@ -34,11 +34,8 @@ public class ExceptionHandlerMiddleware
     public async Task ClientErrorHandleAsync(HttpContext httpContext, StatusCodeException exception)
     {
         httpContext.Response.ContentType = "application/json";
-        ErrorResponseViewModel result = new ErrorResponseViewModel()
-        {
-            Message = exception.Message,
-            StatusCode = (int) exception.HttpStatusCode
-        };
+        ErrorResponseViewModel result = new()
+{Message = exception.Message, StatusCode = (int)exception.HttpStatusCode};
         httpContext.Response.StatusCode = (int) exception.HttpStatusCode;
         await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(result));
     }
@@ -46,7 +43,7 @@ public class ExceptionHandlerMiddleware
     public async Task SystemErrorHandleAsync(HttpContext httpContext, Exception exception)
     {
         httpContext.Response.ContentType = "application/json";
-        ErrorResponseViewModel result = new ErrorResponseViewModel();
+        ErrorResponseViewModel result = new();
         if(_env.IsProduction())
         {
             result.Message = exception.Message;
