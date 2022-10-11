@@ -35,10 +35,13 @@ public class ExceptionHandlerMiddleware
     {
         httpContext.Response.ContentType = "application/json";
         ErrorResponseViewModel result = new()
-{Message = exception.Message, StatusCode = (int)exception.HttpStatusCode};
+        {
+            Message = exception.Message, 
+            StatusCode = (int)exception.HttpStatusCode
+        };
         httpContext.Response.StatusCode = (int) exception.HttpStatusCode;
         await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(result));
-    }
+     }
 
     public async Task SystemErrorHandleAsync(HttpContext httpContext, Exception exception)
     {

@@ -23,7 +23,7 @@ builder.Services.ConfigureSwaggerAuthorize();
 builder.Services.AddMemoryCache();
 
 //-> database
-var connectionString = builder.Configuration.GetConnectionString("PostgreSQLLocalDb");
+var connectionString = builder.Configuration.GetConnectionString("PostgreSQLProductionDb");
 builder.Services.AddDbContext<AppDbContext>(dbOptions => {
     dbOptions.UseNpgsql(connectionString);
     dbOptions.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
